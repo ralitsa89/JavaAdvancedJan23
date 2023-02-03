@@ -1,0 +1,49 @@
+package P12ExerciseDefiningClasses.P09CatLady;
+
+import java.util.HashMap;
+import java.util.Scanner;
+
+import static java.lang.System.in;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(in);
+
+        String line = scanner.nextLine();
+
+        HashMap<String, Cymric> cymricHashMap = new HashMap<>();
+        HashMap<String, Siamese> siameseHashMap = new HashMap<>();
+        HashMap<String, StreetExtraordinaire> stringStreetExtraordinaireHashMap = new HashMap<>();
+
+        HashMap<String, Cat> cats = new HashMap<>();
+
+        while (!line.equals("End")) {
+            String[] catData = line.split("\\s+");
+
+            String catBreed = catData[0];
+            String catName = catData[1];
+
+            Cat cat = null;
+            switch (catBreed) {
+                case "Siamese":
+                    double earSize = Double.parseDouble(catData[2]);
+                    cat = new Siamese(catName, earSize);
+                    break;
+                case "Cymric":
+                    double furLength = Double.parseDouble(catData[2]);
+                    cat = new Cymric(catName, furLength);
+                    break;
+                case "StreetExtraordinaire":
+                    double decibels = Double.parseDouble(catData[2]);
+                    cat = new StreetExtraordinaire(catName, decibels);
+                    break;
+            }
+            cats.put(catName, cat);
+            line = scanner.nextLine();
+        }
+        String catNameToSearch = scanner.nextLine();
+        if (cats.containsKey(catNameToSearch)) {
+            System.out.println(cats.get(catNameToSearch));
+        }
+    }
+}
